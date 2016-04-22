@@ -1,5 +1,7 @@
 {
   "ambientDependencies": {
-    "babylon": "registry:dt/babylon#2.3.0+20160316171810"
+    "babylon": "registry:dt/babylon#2.3.0+20160316171810",
+    "express": "registry:dt/express#4.0.0+20160317120654",
+    "node": "registry:dt/node#4.0.0+20160412142033"
   }
 }
