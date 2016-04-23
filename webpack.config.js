@@ -2,14 +2,11 @@ var webpack = require("webpack");
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-	entry: {
-		client: './src/client/index.ts',
-    server: './src/server/server.ts',
-	},
+	entry: './src/client/index.ts',
 	output: {
-		path: './bin/',
-		filename: './[name]/bundle.js',
-		sourceMapFilename: './[name]/bundle.map'
+		path: './bin/client',
+		filename: './bundle.js',
+		sourceMapFilename: './bundle.map'
 	},
 	devtool: 'source-map',
 	resolve: {
@@ -17,13 +14,13 @@ module.exports = {
 	},
 	module: {
 		loaders: [
-			{ test: /\.ts$/, loader: 'ts-loader' },
+			{ test: /\.ts$/, loader: 'ts-loader?configFileName=tsconfig-client.json' },
 		]
 	},
 
 	plugins: [
 		new CopyWebpackPlugin([
-			{ from: 'src/client/index.html', to: 'client/index.html'}
+			{ from: 'src/client/index.html' }
 		])
 	]
 };
