@@ -9,6 +9,9 @@ module.exports = {
 		filename: './bundle.js',
 		sourceMapFilename: './bundle.map'
 	},
+	externals: {
+		"babylonjs": "babylonjs"
+	},
 	devtool: 'source-map',
 	resolve: {
 		extensions: ['', '.webpack.js', '.web.js', '.json', '.ts', '.js']
@@ -22,7 +25,8 @@ module.exports = {
 
 	plugins: [
 		new CopyWebpackPlugin([
-			{ from: 'src/client/index.html' }
+			{ from: 'src/client/index.html' },
+			{ from: 'node_modules/babylonjs/babylon.max.js' }
 		])
 	]
 };
