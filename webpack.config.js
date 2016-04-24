@@ -3,6 +3,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
 	entry: './src/client/index.ts',
+
 	output: {
 		path: './bin/client',
 		filename: './bundle.js',
@@ -10,11 +11,12 @@ module.exports = {
 	},
 	devtool: 'source-map',
 	resolve: {
-		extensions: ['', '.webpack.js', '.web.js', '.ts', '.js']
+		extensions: ['', '.webpack.js', '.web.js', '.json', '.ts', '.js']
 	},
 	module: {
 		loaders: [
 			{ test: /\.ts$/, loader: 'ts-loader?configFileName=tsconfig-client.json' },
+			{ test: /\.json$/, loader: 'json-loader' }
 		]
 	},
 

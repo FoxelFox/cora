@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "webpack": "webpack",
-    "webpack:w": "webpack --watch"
+    "webpack:w": "webpack --watch",
+    "tsc": "tsc",
+    "tsc:w": "tsc --watch"
   },
   "repository": {
     "type": "git",
@@ -21,9 +23,14 @@
     "babylonjs": "^2.3.0",
     "copy-webpack-plugin": "^2.1.1",
     "express": "^4.13.4",
+    "json-loader": "^0.5.4",
     "ts-loader": "^0.8.2",
     "typescript": "^1.8.10",
     "typings": "^0.7.12",
     "webpack": "^1.13.0"
+  },
+  "dependencies": {
+    "fs": "0.0.2",
+    "net": "^1.0.2"
   }
 }
