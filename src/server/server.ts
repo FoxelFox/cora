@@ -9,7 +9,7 @@ class Server {
 	private game: Game;
 
 	constructor() {
-	 	let expressApp = express();
+		let expressApp = express();
 		let server = http.createServer(expressApp);
 		let router = express.Router();
 		this.io = socket(server);

@@ -13,11 +13,11 @@ export class GameObject {
 	}
 
 	Add(component: Component) {
-		this.components[component.constructor.name] = component;
+		this.components[(<any>component.constructor).name] = component;
 	}
 
 	Remove(component: Component) {
-		delete this.components[component.constructor.name];
+		delete this.components[(<any>component.constructor).name];
 	}
 
 	Get<T extends Component>(type: {new(): T; }): T {
