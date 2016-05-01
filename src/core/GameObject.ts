@@ -20,8 +20,16 @@ export class GameObject {
 		delete this.components[(<any>component.constructor).name];
 	}
 
-	Get<T extends Component>(type: {new(): T; }): T {
-		return <T>this.components[type.prototype.constructor.name];
+	Get(type: string) {
+		return this.components[type];
+	}
+
+	Has(type: string): boolean {
+		if (this.components[type]) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	get ID (): number {

@@ -18,4 +18,8 @@ export class Body extends CANNON.Body implements Component {
 	Update(): void {
 
 	}
+
+	Type() {
+		return "Body";
+	}
 }

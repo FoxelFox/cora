@@ -16,12 +16,15 @@ export class Game {
 	}
 
 	ClientConnected(socket: string) {
-		
+
 	}
 
 	ClientDisconnected(socket: string) {
 
 	}
 
+	get Scene() {
+		return this.scene;
+	}
 
 }
