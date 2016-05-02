@@ -7,7 +7,7 @@ interface Player {
 
 export class Game {
 
-	private players: Player[];
+	private players: { [key: number]: Player; };
 	private scene: Scene;
 
 	constructor () {
@@ -16,11 +16,15 @@ export class Game {
 	}
 
 	ClientConnected(socket: string) {
-
+		this.players[socket] = {id: socket, name: "player" + (Object.keys(this.players).length + 1)};
 	}
 
 	ClientDisconnected(socket: string) {
+		delete this.players[socket];
+	}
 
+	Update() {
+		
 	}
 
 	get Scene() {

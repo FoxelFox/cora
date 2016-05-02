@@ -21,15 +21,21 @@ class Server {
 		let game = new Game();
 
 		this.setupSockets();
+
+		setInterval(() => {
+			this.io.emit("update", this.game.Update());
+		}, 10);
 	}
 
 	setupSockets() {
 		this.io.on("connection", (socket) => {
 
 			this.game.ClientConnected(socket.id);
+			this.io.emit("client:connection", socket.id);
 
 			socket.on("disconnect", () => {
 				this.game.ClientDisconnected(socket.id);
+				this.io.emit("client:disconnect", socket.id);
 			});
 		});
 	}
