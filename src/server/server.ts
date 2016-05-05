@@ -18,7 +18,7 @@ class Server {
 		expressApp.use("", router);
 		server.listen("8080");
 
-		let game = new Game();
+		this.game = new Game();
 
 		this.setupSockets();
 
@@ -29,7 +29,7 @@ class Server {
 
 	setupSockets() {
 		this.io.on("connection", (socket) => {
-
+			console.log(socket.id);
 			this.game.ClientConnected(socket.id);
 			this.io.emit("client:connection", socket.id);
 
