@@ -1,25 +1,19 @@
 import {SceneEvent, Scene} from "../core/Scene";
 import {GameObject} from "../core/GameObject";
 import {Body} from "../core/component/Body";
+import * as THREE from "three";
 
 export class Render {
 
-	private canvas: HTMLCanvasElement;
-	private engine: BABYLON.Engine;
-	private rScene: BABYLON.Scene;
+	private rScene: THREE.Scene;
 
 	constructor(private gScene: Scene) {
-		this.canvas = <HTMLCanvasElement>document.getElementById("canvas");
-		this.engine = new BABYLON.Engine(this.canvas, true);
-		this.rScene = this.createScene();
-		// run the render loop
-		this.engine.runRenderLoop(() => {
-			this.rScene.render();
-		});
+
+		this.createScene();
 
 		// the canvas/window resize event handler
 		window.addEventListener("resize", () => {
-			this.engine.resize();
+			// this.engine.resize();
 		});
 
 		gScene.AddListener((event: SceneEvent) => {
@@ -27,33 +21,31 @@ export class Render {
 		});
 	}
 
-	private createScene (): BABYLON.Scene {
-		// create a basic BJS Scene object
-		let rScene = new BABYLON.Scene(this.engine);
+	private createScene () {
+		var scene = new THREE.Scene();
+		var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
 
-		// create a FreeCamera, and set its position to (x:0, y:5, z:-10)
-		let camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), rScene);
+		var renderer = new THREE.WebGLRenderer();
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		document.body.appendChild( renderer.domElement );
 
-		// target the camera to rScene origin
-		camera.setTarget(BABYLON.Vector3.Zero());
+		var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+		var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+		var cube = new THREE.Mesh( geometry, material );
+		scene.add( cube );
 
-		// attach the camera to the canvas
-		camera.attachControl(this.canvas, false);
+		camera.position.z = 5;
 
-		// create a basic light, aiming 0,1,0 - meaning, to the sky
-		let light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), rScene);
+		var render = function () {
+			requestAnimationFrame( render );
 
-		// create a built-in "sphere" shape; its constructor takes 5 params: name, width, depth, subdivisions, rScene
-		let sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, rScene);
-		sphere.material = new BABYLON.StandardMaterial("t1", rScene);
-		sphere.material.alpha = 0.5;
-		sphere.position.y = 5;
+			cube.rotation.x += 0.1;
+			cube.rotation.y += 0.1;
 
-		// create a built-in "ground" shape; its constructor takes the same 5 params as the sphere's one
-		let ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, rScene);
+			renderer.render(scene, camera);
+		};
 
-		// return the created rScene
-		return rScene;
+		render();
 	}
 
 	sceneChanged (event: SceneEvent) {

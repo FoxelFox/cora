@@ -28,13 +28,14 @@
     "socket.io-client": "^1.4.5",
     "ts-loader": "^0.8.2",
     "typescript": "^1.8.10",
-    "typings": "^0.7.12",
+    "typings": "^0.8.0",
     "webpack": "^1.13.0"
   },
   "dependencies": {
     "cannon": "^0.6.2",
     "fs": "0.0.2",
     "net": "^1.0.2",
-    "socket.io": "^1.4.5"
+    "socket.io": "^1.4.5",
+    "three": "^0.76.1"
   }
 }
