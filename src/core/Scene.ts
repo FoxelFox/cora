@@ -1,7 +1,16 @@
 import {GameObject} from "./GameObject";
 
+export enum SceneEventType {
+	Add, Remove
+}
+
+export interface ISceneEventListener {
+	onSceneAdd(event: SceneEvent): void;
+	onSceneRemove(event: SceneEvent): void;
+}
+
 export interface SceneEvent {
-	case: string;
+	case: SceneEventType;
 	object: GameObject;
 }
 
@@ -17,14 +26,14 @@ export class Scene {
 	Add(object: GameObject) {
 		this.objects[object.ID] = object;
 
-		const e = { case: "add", object: object };
+		const e = { case: SceneEventType.Add, object: object };
 		for (const listener of this.listeners) {
 			listener(e);
 		}
 	}
 
 	Remove(object: GameObject) {
-		const e = { case: "remove", object: object };
+		const e = { case: SceneEventType.Remove, object: object };
 		for (const listener of this.listeners) {
 			listener(e);
 		}
