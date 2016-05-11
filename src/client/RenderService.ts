@@ -1,4 +1,4 @@
-import {SceneEvent, Scene} from "../core/Scene";
+import {SceneEvent, Scene, SceneEventType} from "../core/Scene";
 import {GameObject} from "../core/GameObject";
 import {Body} from "../core/component/Body";
 import * as THREE from "three";
@@ -50,8 +50,8 @@ export class Render {
 
 	sceneChanged (event: SceneEvent) {
 		switch (event.case) {
-			case "add": this.add(event.object); break;
-			case "remove": this.remove(event.object); break;
+			case SceneEventType.Add: this.add(event.object); break;
+			case SceneEventType.Remove: this.remove(event.object); break;
 			default: break;
 		}
 	}
