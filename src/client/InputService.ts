@@ -2,27 +2,22 @@ import * as keyboardJS from "keyboardjs";
 
 import {AService} from "../core/AService";
 
-interface Button {
-	isPressed: boolean;
-	isNew: boolean;
-}
-
-export const Key = <any> {
+const config = <any> {
 	W: "w",
 	A: "a",
 	S: "s",
-	D: "d"
+	D: "d",
 };
 
 export class Input implements AService {
 
-	private keyMap: {[key: string]: Button};
+	private keyMap: any;
 
 	constructor() {
 		this.keyMap = {};
 
-		for (let k of Object.keys(Key)) {
-			this.initKey(Key[k]);
+		for (let k of Object.keys(config)) {
+			this.initKey(k);
 		}
 	}
 
@@ -36,13 +31,21 @@ export class Input implements AService {
 
 	private initKey(key: string) {
 		this.keyMap[key] = { isPressed: false, isNew: false };
-		keyboardJS.bind(key.toString(), () => {
-			this.keyMap[key].isNew = !this.keyMap[Key.W].isPressed;
+		keyboardJS.bind(config[key], () => {
+			this.keyMap[key].isNew = !this.keyMap[key].isPressed;
 			this.keyMap[key].isPressed = true;
 		}, () => {
-			this.keyMap[key].isNew = this.keyMap[Key.W].isPressed;
+			this.keyMap[key].isNew = this.keyMap[key].isPressed;
 			this.keyMap[key].isPressed = false;
 		});
+	}
+
+	ToNet() {
+		return this.keyMap;
+	}
+
+	FromNet(keyMap: any) {
+		this.keyMap = keyMap;
 	}
 
 }

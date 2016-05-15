@@ -1,6 +1,6 @@
 export interface Component {
 	ToNet(): any;
-	FromNet(): void;
+	FromNet(data: any): void;
 	Update(): void;
 	Type(): string;
 }

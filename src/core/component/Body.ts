@@ -11,7 +11,7 @@ export class Body extends CANNON.Body implements Component {
 		return {};
 	}
 
-	FromNet(): void {
+	FromNet(data: any): void {
 
 	}
 

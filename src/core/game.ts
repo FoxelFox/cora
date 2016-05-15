@@ -1,13 +1,10 @@
 import {Scene} from "./Scene";
-
-interface Player {
-	id: string;
-	name: string;
-}
+import {Client} from "./component/Client";
+import {GameObject} from "./GameObject";
 
 export class Game {
 
-	private players: { [key: string]: Player; };
+	private players: { [key: string]: GameObject; };
 	private scene: Scene;
 
 	constructor () {
@@ -16,10 +13,9 @@ export class Game {
 	}
 
 	ClientConnected(socket: string) {
-		this.players[socket] = {
-			id: socket,
-			name: "player" + (Object.keys(this.players).length + 1)
-		};
+		const player = new GameObject();
+		player.Add(new Client());
+		this.players[socket] = player;
 	}
 
 	ClientDisconnected(socket: string) {

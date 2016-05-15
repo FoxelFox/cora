@@ -12,7 +12,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 	socket.on("client:connection", (socketId: string) => {
 		const localID = "/#" + socket.id;
-		console.log(localID);
+		game.ClientConnected(socketId);
 	});
 
 });
