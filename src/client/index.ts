@@ -15,4 +15,8 @@ window.addEventListener("DOMContentLoaded", () => {
 		game.ClientConnected(socketId);
 	});
 
+	socket.on("update", (data: any) => {
+		console.log("update");
+	});
+
 });

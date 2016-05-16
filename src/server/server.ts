@@ -23,8 +23,9 @@ class Server {
 		this.setupSockets();
 
 		setInterval(() => {
+			this.game.Update();
 			this.io.emit("update", this.game.Update());
-		}, 10);
+		}, 1000 / 10);
 	}
 
 	setupSockets() {

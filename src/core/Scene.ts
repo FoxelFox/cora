@@ -1,4 +1,5 @@
 import {GameObject} from "./GameObject";
+import {Service} from "./Service";
 
 export enum SceneEventType {
 	Add, Remove
@@ -14,12 +15,12 @@ export interface SceneEvent {
 	object: GameObject;
 }
 
-export class Scene {
-	private objects: { [key: number]: GameObject; };
+export class Scene implements Service {
+	private objects: { [key: string]: GameObject; };
 	private listeners: Array<(event: SceneEvent) => void>;
 
 	constructor() {
-		this.objects = [];
+		this.objects = {};
 		this.listeners = [];
 	}
 
@@ -43,6 +44,12 @@ export class Scene {
 
 	AddListener(callback: (event: SceneEvent) => void) {
 		this.listeners.push(callback);
+	}
+
+	Update() {
+		for (const id of Object.keys(this.objects)) {
+			console.log(this.objects[id]);
+		}
 	}
 
 }

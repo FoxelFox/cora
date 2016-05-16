@@ -16,6 +16,7 @@ export class Game {
 		const player = new GameObject();
 		player.Add(new Client());
 		this.players[socket] = player;
+		this.scene.Add(player);
 	}
 
 	ClientDisconnected(socket: string) {
@@ -23,7 +24,7 @@ export class Game {
 	}
 
 	Update() {
-
+		this.scene.Update();
 	}
 
 	get Scene() {

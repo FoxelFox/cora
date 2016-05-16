@@ -9,7 +9,7 @@ export class GameObject {
 
 	constructor() {
 		this.components = {};
-		this.id = idCounter++;
+		this.id = ++idCounter;
 	}
 
 	Add(component: Component) {

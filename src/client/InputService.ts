@@ -1,6 +1,6 @@
 import * as keyboardJS from "keyboardjs";
 
-import {AService} from "../core/AService";
+import {Service} from "../core/Service";
 
 const config = <any> {
 	W: "w",
@@ -9,7 +9,7 @@ const config = <any> {
 	D: "d",
 };
 
-export class Input implements AService {
+export class Input implements Service {
 
 	private keyMap: any;
 
@@ -25,7 +25,7 @@ export class Input implements AService {
 		return this.keyMap[key].isPressed;
 	}
 
-	update() {
+	Update() {
 
 	}
 
