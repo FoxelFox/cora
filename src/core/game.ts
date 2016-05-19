@@ -1,6 +1,7 @@
 import {Scene} from "./Scene";
 import {Client} from "./component/Client";
 import {GameObject} from "./GameObject";
+import {Model} from "./component/Model";
 
 export class Game {
 
@@ -15,6 +16,8 @@ export class Game {
 	ClientConnected(socket: string) {
 		const player = new GameObject();
 		player.Add(new Client());
+		player.Add(new Model("test"));
+
 		this.players[socket] = player;
 		this.scene.Add(player);
 	}

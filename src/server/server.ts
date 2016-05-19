@@ -14,7 +14,9 @@ class Server {
 		let router = express.Router();
 		this.io = socket(server);
 
-		router.use(express.static("./bin/client"));
+		router.use("/", express.static("./bin/client"));
+		router.use("/assets", express.static("./assets"));
+
 		expressApp.use("", router);
 		server.listen("8080");
 
