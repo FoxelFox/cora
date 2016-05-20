@@ -6,7 +6,7 @@ using node, cannonjs, babylonjs
 Load Dependencies
 
 `
-npm install & typings install
+npm install
 `
 
 Compile
