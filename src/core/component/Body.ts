@@ -1,9 +1,13 @@
 import {Component} from "./Component";
+import {Cannon} from "../PhysicService";
 
-export class Body extends CANNON.Body implements Component {
 
-	constructor(options: any) {
-		super(options);
+export class Body implements Component {
+
+	private body: CANNON.Body;
+
+	constructor(options?: any) {
+		this.body = new Cannon.Body(options);
 	}
 
 	ToNet(): any {

@@ -57,8 +57,11 @@ export class Render {
 	}
 
 	private add(object: GameObject) {
-		if (object.Has("Body")) {
+		if (object.Has("Body") && object.Has("Model")) {
 			const body = <Body>object.Get("Body");
+			const model = <Body>object.Get("Model");
+
+			
 		}
 	}
 
