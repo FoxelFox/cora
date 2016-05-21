@@ -15,6 +15,14 @@ export class Game {
 	}
 
 	ClientConnected(socket: string) {
+
+	}
+
+	ClientDisconnected(socket: string) {
+		delete this.players[socket];
+	}
+
+	ClientJoin(socket: string) {
 		const player = new GameObject();
 		player.Add(new Client());
 		player.Add(new Model("test"));
@@ -22,10 +30,6 @@ export class Game {
 
 		this.players[socket] = player;
 		this.scene.Add(player);
-	}
-
-	ClientDisconnected(socket: string) {
-		delete this.players[socket];
 	}
 
 	Update() {

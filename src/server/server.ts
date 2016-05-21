@@ -34,7 +34,15 @@ class Server {
 		this.io.on("connection", (socket) => {
 			console.log(socket.id);
 			this.game.ClientConnected(socket.id);
+
 			this.io.emit("client:connection", socket.id);
+
+			socket.emit("client:load", ["test"]);
+
+			socket.on("join", () => {
+				this.game.ClientJoin(socket.id);
+				this.io.emit("client:join", socket.id);
+			});
 
 			socket.on("disconnect", () => {
 				this.game.ClientDisconnected(socket.id);

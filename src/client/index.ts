@@ -5,7 +5,7 @@ import {Socket, connect } from "socket.io-client";
 
 window.addEventListener("DOMContentLoaded", () => {
 	const game = new Game();
-	new Render(game.Scene);
+	const render = new Render(game.Scene);
 	new Input();
 
 	let socket = connect();
@@ -13,6 +13,17 @@ window.addEventListener("DOMContentLoaded", () => {
 	socket.on("client:connection", (socketId: string) => {
 		const localID = "/#" + socket.id;
 		game.ClientConnected(socketId);
+
+	});
+
+	socket.on("client:load", (data: string[]) => {
+		render.load(data).then(() => {
+			socket.emit("join");
+		});
+	});
+
+	socket.on("client:join", (socketId: string) => {
+		game.ClientJoin(socketId);
 	});
 
 	socket.on("update", (data: any) => {

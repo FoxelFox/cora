@@ -1,11 +1,13 @@
 import {SceneEvent, Scene, SceneEventType} from "../core/Scene";
 import {GameObject} from "../core/GameObject";
 import {Body} from "../core/component/Body";
+import {Model} from "../core/component/Model";
 import * as THREE from "three";
 
 export class Render {
 
 	private rScene: THREE.Scene;
+	private db: {[key: string]: THREE.Mesh} = {};
 
 	constructor(private gScene: Scene) {
 
@@ -22,27 +24,30 @@ export class Render {
 	}
 
 	private createScene () {
-		let scene = new THREE.Scene();
+		this.rScene = new THREE.Scene();
 		let camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
 		let renderer = new THREE.WebGLRenderer();
 		renderer.setSize( window.innerWidth, window.innerHeight );
 		document.body.appendChild( renderer.domElement );
 
-		let geometry = new THREE.BoxGeometry( 1, 1, 1 );
-		let material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-		let cube = new THREE.Mesh( geometry, material );
-		scene.add( cube );
+		// let geometry = new THREE.BoxGeometry( 1, 1, 1 );
+		// let material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+		// let cube = new THREE.Mesh( geometry, material );
+		// scene.add( cube );
+
+		this.rScene.add(new THREE.AmbientLight( 0x404040 ));
+
 
 		camera.position.z = 5;
 
-		let render = function () {
+		let render = () => {
 			requestAnimationFrame( render );
 
-			cube.rotation.x += 0.1;
-			cube.rotation.y += 0.1;
+			// cube.rotation.x += 0.1;
+			// cube.rotation.y += 0.1;
 
-			renderer.render(scene, camera);
+			renderer.render(this.rScene, camera);
 		};
 
 		render();
@@ -56,12 +61,30 @@ export class Render {
 		}
 	}
 
+	load(data: string[]) {
+		return new Promise((resolve, reject) => {
+			let c = 0;
+			for (let json of data) {
+				const loader = new THREE.JSONLoader();
+				loader.load(
+					"/assets/" + json + ".json",
+					(geo, mat) => {
+						this.db[json] = new THREE.Mesh(geo, new THREE.MultiMaterial(mat));
+						if (++c === data.length) {
+							resolve();
+						}
+					}
+				);
+			}
+		});
+	}
+
 	private add(object: GameObject) {
 		if (object.Has("Body") && object.Has("Model")) {
 			const body = <Body>object.Get("Body");
-			const model = <Body>object.Get("Model");
+			const model = <Model>object.Get("Model");
 
-			
+			this.rScene.add(this.db[model.File]);
 		}
 	}
 
