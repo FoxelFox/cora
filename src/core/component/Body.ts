@@ -25,4 +25,8 @@ export class Body implements Component {
 	Type() {
 		return "Body";
 	}
+
+	get Body(): CANNON.Body {
+		return this.body;
+	}
 }

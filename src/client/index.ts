@@ -30,4 +30,8 @@ window.addEventListener("DOMContentLoaded", () => {
 		console.log("update");
 	});
 
+	setInterval(() => {
+		game.Update();
+	}, 10);
+
 });

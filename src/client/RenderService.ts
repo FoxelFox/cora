@@ -1,13 +1,23 @@
 import {Scene, ISceneEventListener} from "../core/Scene";
 import {GameObject} from "../core/GameObject";
 import {Body} from "../core/component/Body";
+import {Cannon} from "../core/PhysicService";
 import {Model} from "../core/component/Model";
 import * as THREE from "three";
+
+
+interface ModelResource {
+		geo: THREE.Geometry;
+		mat: THREE.Material[];
+}
+
+
 
 export class Render implements ISceneEventListener {
 
 	private rScene: THREE.Scene;
-	private db: {[key: string]: THREE.Mesh} = {};
+	private resDB: {[key: string]: ModelResource} = {};
+	private objectDB: {[key: number]: {body: CANNON.Body, mesh: THREE.Mesh}} = {};
 
 	constructor(private gScene: Scene) {
 
@@ -42,8 +52,14 @@ export class Render implements ISceneEventListener {
 		let render = () => {
 			requestAnimationFrame( render );
 
-			// cube.rotation.x += 0.1;
-			// cube.rotation.y += 0.1;
+			for ( let id in this.objectDB) {
+				const body = this.objectDB[id].body;
+				let mesh = this.objectDB[id].mesh;
+
+				mesh.position.x = body.position.x;
+				mesh.position.y = body.position.y;
+				mesh.position.z = body.position.z;
+			}
 
 			renderer.render(this.rScene, camera);
 		};
@@ -59,7 +75,7 @@ export class Render implements ISceneEventListener {
 				loader.load(
 					"/assets/" + json + ".json",
 					(geo, mat) => {
-						this.db[json] = new THREE.Mesh(geo, new THREE.MultiMaterial(mat));
+						this.resDB[json] = {geo, mat};
 						if (++c === data.length) {
 							resolve();
 						}
@@ -73,8 +89,12 @@ export class Render implements ISceneEventListener {
 		if (object.Has("Body") && object.Has("Model")) {
 			const body = <Body>object.Get("Body");
 			const model = <Model>object.Get("Model");
+			const res = this.resDB[model.File];
 
-			this.rScene.add(this.db[model.File]);
+			let mesh = new THREE.Mesh(res.geo, new THREE.MultiMaterial(res.mat));
+
+			this.rScene.add(mesh);
+			this.objectDB[object.ID] = {body: body.Body, mesh: mesh};
 		}
 	}
 

@@ -47,7 +47,7 @@ export class Scene implements Service {
 
 	Update() {
 		for (const id of Object.keys(this.objects)) {
-			console.log(this.objects[id]);
+			
 		}
 	}
 
