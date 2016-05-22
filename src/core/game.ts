@@ -15,6 +15,12 @@ export class Game {
 		this.players = {};
 		this.scene = new Scene();
 		this.physic = new PhysicService(this.scene);
+
+		let world = new GameObject();
+		world.Add(new Body({mass: 0, shape: new Cannon.Plane()}));
+		
+
+		this.scene.Add(world);
 	}
 
 	ClientConnected(socket: string) {
