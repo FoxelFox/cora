@@ -6,8 +6,8 @@ export enum SceneEventType {
 }
 
 export interface ISceneEventListener {
-	onSceneAdd(event: SceneEvent): void;
-	onSceneRemove(event: SceneEvent): void;
+	onSceneAdd(object: GameObject): void;
+	onSceneRemove(object: GameObject): void;
 }
 
 export interface SceneEvent {
@@ -17,7 +17,7 @@ export interface SceneEvent {
 
 export class Scene implements Service {
 	private objects: { [key: string]: GameObject; };
-	private listeners: Array<(event: SceneEvent) => void>;
+	private listeners: ISceneEventListener[];
 
 	constructor() {
 		this.objects = {};
@@ -27,22 +27,21 @@ export class Scene implements Service {
 	Add(object: GameObject) {
 		this.objects[object.ID] = object;
 
-		const e = { case: SceneEventType.Add, object: object };
 		for (const listener of this.listeners) {
-			listener(e);
+			listener.onSceneAdd(object);
 		}
 	}
 
 	Remove(object: GameObject) {
-		const e = { case: SceneEventType.Remove, object: object };
+
 		for (const listener of this.listeners) {
-			listener(e);
+			listener.onSceneRemove(object);
 		}
 		object.delete();
 		delete this.objects[object.ID];
 	}
 
-	AddListener(callback: (event: SceneEvent) => void) {
+	AddListener(callback: ISceneEventListener) {
 		this.listeners.push(callback);
 	}
 

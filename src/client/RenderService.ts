@@ -1,10 +1,10 @@
-import {SceneEvent, Scene, SceneEventType} from "../core/Scene";
+import {Scene, ISceneEventListener} from "../core/Scene";
 import {GameObject} from "../core/GameObject";
 import {Body} from "../core/component/Body";
 import {Model} from "../core/component/Model";
 import * as THREE from "three";
 
-export class Render {
+export class Render implements ISceneEventListener {
 
 	private rScene: THREE.Scene;
 	private db: {[key: string]: THREE.Mesh} = {};
@@ -18,9 +18,7 @@ export class Render {
 			// this.engine.resize();
 		});
 
-		gScene.AddListener((event: SceneEvent) => {
-			this.sceneChanged(event);
-		});
+		gScene.AddListener(this);
 	}
 
 	private createScene () {
@@ -53,14 +51,6 @@ export class Render {
 		render();
 	}
 
-	sceneChanged (event: SceneEvent) {
-		switch (event.case) {
-			case SceneEventType.Add: this.add(event.object); break;
-			case SceneEventType.Remove: this.remove(event.object); break;
-			default: break;
-		}
-	}
-
 	load(data: string[]) {
 		return new Promise((resolve, reject) => {
 			let c = 0;
@@ -79,7 +69,7 @@ export class Render {
 		});
 	}
 
-	private add(object: GameObject) {
+	onSceneAdd(object: GameObject) {
 		if (object.Has("Body") && object.Has("Model")) {
 			const body = <Body>object.Get("Body");
 			const model = <Model>object.Get("Model");
@@ -88,7 +78,9 @@ export class Render {
 		}
 	}
 
-	private remove(object: GameObject) {
+	onSceneRemove(object: GameObject) {
 
 	}
+
+
 }
