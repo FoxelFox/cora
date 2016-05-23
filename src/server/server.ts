@@ -26,7 +26,7 @@ class Server {
 
 		setInterval(() => {
 			this.game.Update();
-			this.io.emit("update", this.game.Update());
+			this.io.emit("client:update", this.game.Update());
 		}, 1000 / 10);
 	}
 
@@ -47,6 +47,10 @@ class Server {
 			socket.on("disconnect", () => {
 				this.game.ClientDisconnected(socket.id);
 				this.io.emit("client:disconnect", socket.id);
+			});
+
+			socket.on("update", (data: any) => {
+				this.game.ClientUpdate(data, socket.id);
 			});
 		});
 	}

@@ -6,7 +6,7 @@ import {Socket, connect } from "socket.io-client";
 window.addEventListener("DOMContentLoaded", () => {
 	const game = new Game();
 	const render = new Render(game.Scene);
-	new Input();
+	const input = new Input();
 
 	let socket = connect();
 
@@ -26,7 +26,10 @@ window.addEventListener("DOMContentLoaded", () => {
 		game.ClientJoin(socketId);
 	});
 
-	socket.on("update", (data: any) => {
+	socket.on("client:update", (data: any) => {
+		socket.emit("update", {
+			Client: input.ToNet()
+		});
 		console.log("update");
 	});
 

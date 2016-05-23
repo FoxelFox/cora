@@ -65,7 +65,7 @@ export class Render implements ISceneEventListener {
 		dirLight.shadowMapWidth = 2048;
 		dirLight.shadowMapHeight = 2048;
 
-		var d = 50;
+		let d = 50;
 
 		dirLight.shadowCameraLeft = -d;
 		dirLight.shadowCameraRight = d;
@@ -86,11 +86,11 @@ export class Render implements ISceneEventListener {
 
 
 		// ground
-		var groundGeo = new THREE.PlaneBufferGeometry( 10000, 10000 );
-		var groundMat = new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0x050505 } );
+		let groundGeo = new THREE.PlaneBufferGeometry( 10000, 10000 );
+		let groundMat = new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0x050505 } );
 		groundMat.color.setHSL( 0.095, 1, 0.75 );
 
-		var ground = new THREE.Mesh( groundGeo, groundMat );
+		let ground = new THREE.Mesh( groundGeo, groundMat );
 		ground.receiveShadow = true;
 		ground.position.y = -33;
 		this.rScene.add( ground );
@@ -154,6 +154,5 @@ export class Render implements ISceneEventListener {
 	onSceneRemove(object: GameObject) {
 
 	}
-
 
 }
