@@ -1,9 +1,9 @@
-import {Scene} from "./Scene";
-import {Client} from "./component/Client";
-import {GameObject} from "./GameObject";
-import {Model} from "./component/Model";
-import {Body} from "./component/Body";
-import {Cannon, PhysicService} from "./PhysicService";
+import {Scene} from "../core/Scene";
+import {Client} from "../core/component/Client";
+import {GameObject} from "../core/GameObject";
+import {Model} from "../core/component/Model";
+import {Body} from "../core/component/Body";
+import {Cannon, PhysicService} from "../core/PhysicService";
 
 export class Game {
 

@@ -1,7 +1,7 @@
 import * as socket from "socket.io";
 import * as express from "express";
 import * as http from "http";
-import  {Game} from "../core/game";
+import  {Game} from "../game/game";
 
 class Server {
 
