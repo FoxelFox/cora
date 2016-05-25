@@ -12,15 +12,11 @@ export interface KeyMap {
 	D: Button;
 };
 
-export class Client implements Component {
+export class Client extends Component {
 	keyMap: KeyMap;
 
 	constructor() {
-
-	}
-
-	Update() {
-
+		super("Client");
 	}
 
 	FromNet(keyMap: KeyMap) {
@@ -31,7 +27,4 @@ export class Client implements Component {
 		return this.keyMap;
 	}
 
-	Type() {
-		return "Client";
-	}
 }

@@ -12,6 +12,12 @@ export class GameObject {
 		this.id = ++idCounter;
 	}
 
+	Start() {
+		for (let id in this.components) {
+			this.components[id].Start();
+		}
+	}
+
 	Add(component: Component) {
 		this.components[(<any>component.constructor).name] = component;
 	}

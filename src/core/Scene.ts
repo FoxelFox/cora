@@ -25,6 +25,7 @@ export class Scene implements Service {
 	}
 
 	Add(object: GameObject) {
+		object.Start();
 		this.objects[object.ID] = object;
 
 		for (const listener of this.listeners) {
@@ -47,7 +48,7 @@ export class Scene implements Service {
 
 	Update() {
 		for (const id of Object.keys(this.objects)) {
-			
+
 		}
 	}
 

@@ -4,6 +4,7 @@ import {GameObject} from "../core/GameObject";
 import {Model} from "../core/component/Model";
 import {Body} from "../core/component/Body";
 import {Cannon, PhysicService} from "../core/PhysicService";
+import {Player} from "./Player";
 
 export class Game {
 
@@ -36,6 +37,7 @@ export class Game {
 		client.Add(new Client());
 		client.Add(new Model("test"));
 		client.Add(new Body({mass: 1, shape: new Cannon.Sphere(1)}));
+		client.Add(new Player());
 
 		this.clients[socket] = client;
 		this.scene.Add(client);

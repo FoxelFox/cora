@@ -1,25 +1,9 @@
 import {Component} from "./Component";
 
-export class Model implements Component {
+export class Model extends Component {
 
 	constructor (private file: string) {
-
-	}
-
-	ToNet() {
-		
-	}
-
-	FromNet() {
-
-	}
-
-	Update() {
-
-	}
-
-	Type() {
-		return "Model";
+		super("Model");
 	}
 
 	get File(): string {
