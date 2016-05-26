@@ -54,6 +54,14 @@ export class Game {
 		}
 	}
 
+	FromNet(data: any) {
+		this.scene.FromNet(data);
+	}
+
+	ToNet() {
+		return this.scene.ToNet();
+	}
+
 	get Scene() {
 		return this.scene;
 	}

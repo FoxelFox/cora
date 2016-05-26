@@ -5,18 +5,27 @@ export interface Button {
 	isNew: boolean;
 }
 
+export enum Control {
+	W = <any>"W",
+	A = <any>"A",
+	S = <any>"S",
+	D = <any>"D"
+}
+
 export interface KeyMap {
-	W: Button;
-	A: Button;
-	S: Button;
-	D: Button;
+	[key: string]: Button;
 };
 
 export class Client extends Component {
-	keyMap: KeyMap;
+	keyMap: { [key: string]: Button; };
 
 	constructor() {
 		super("Client");
+		this.keyMap = {};
+	}
+
+	isControl(control: Control): boolean {
+		return this.keyMap[control] ? this.keyMap[control].isPressed : false;
 	}
 
 	FromNet(keyMap: KeyMap) {

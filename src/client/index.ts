@@ -27,10 +27,10 @@ window.addEventListener("DOMContentLoaded", () => {
 	});
 
 	socket.on("client:update", (data: any) => {
+		game.FromNet(data);
 		socket.emit("update", {
 			Client: input.ToNet()
 		});
-		console.log("update");
 	});
 
 	setInterval(() => {

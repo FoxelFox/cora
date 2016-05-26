@@ -21,10 +21,6 @@ export class Input implements Service {
 		}
 	}
 
-	isKeyDown(key: string): boolean {
-		return this.keyMap[key].isPressed;
-	}
-
 	Update() {
 
 	}

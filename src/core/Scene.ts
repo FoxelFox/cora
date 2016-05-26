@@ -48,8 +48,25 @@ export class Scene implements Service {
 
 	Update() {
 		for (const id of Object.keys(this.objects)) {
-
+			this.objects[id].Update();
 		}
+	}
+
+	FromNet(data: any) {
+		for (const id in data) {
+			this.objects[id].FromNet(data[id]);
+		}
+	}
+
+	ToNet(): any {
+		let net: any = {};
+		for (const id of Object.keys(this.objects)) {
+			let onet = this.objects[id].ToNet();
+			if (onet) {
+				net[id] = onet;
+			}
+		}
+		return net;
 	}
 
 }

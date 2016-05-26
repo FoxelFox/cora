@@ -1,13 +1,19 @@
 import {Component} from "../core/component/Component";
+import {Client, Control} from "../core/component/Client";
+import {Body} from "../core/component/Body";
 
 export class Player extends Component {
 
+	private client: Client;
+	private body: Body;
+
 	constructor() {
-		super("Player")
+		super("Player");
 	}
 
 	Start() {
-		console.log("test");
+		this.client = <Client>this.GameObject.Get("Client");
+		this.body = <Body>this.GameObject.Get("Body");
 	}
 
 	ToNet() {
@@ -19,6 +25,8 @@ export class Player extends Component {
 	};
 
 	Update() {
-
+		if (this.client.isControl(Control.W)) {
+			this.body.Body.force.x = 10;
+		}
 	};
 }
