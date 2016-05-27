@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/FoxelFox/cora#readme",
   "devDependencies": {
-    "babylonjs": "^2.3.0",
+	 "three": "^0.76.1",
     "copy-webpack-plugin": "^3.0.0",
     "express": "^4.13.4",
     "json-loader": "^0.5.4",
@@ -36,7 +36,6 @@
     "cannon": "^0.6.2",
     "fs": "0.0.2",
     "net": "^1.0.2",
-    "socket.io": "^1.4.5",
-    "three": "^0.76.1"
+    "socket.io": "^1.4.5"
   }
 }

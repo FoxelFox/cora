@@ -25,9 +25,7 @@ module.exports = {
 
 	plugins: [
 		new CopyWebpackPlugin([
-			{ from: 'src/client/index.html' },
-			{ from: 'node_modules/babylonjs/babylon.max.js' },
-			{ from: 'node_modules/babylonjs/Oimo.js' }
+			{ from: 'src/client/index.html' }
 		])
 	]
 };
