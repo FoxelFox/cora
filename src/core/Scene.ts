@@ -52,6 +52,19 @@ export class Scene implements Service {
 		}
 	}
 
+	Serialize() {
+		let data: any = {};
+		for (const id of Object.keys(this.objects)) {
+			data[id] = this.objects[id].Serialize();
+		}
+
+		return data;
+	}
+
+	Deserialize() {
+
+	}
+
 	FromNet(data: any) {
 		for (const id in data) {
 			this.objects[id].FromNet(data[id]);

@@ -54,6 +54,21 @@ export class Game {
 		}
 	}
 
+	Serialize() {
+		let clients: any = {};
+		for (const id in this.clients) {
+			clients[id] = this.clients[id].ID;
+		}
+		return {
+			clients: clients,
+			scene: this.scene.Serialize()
+		};
+	}
+
+	Deserialize() {
+
+	}
+
 	FromNet(data: any) {
 		this.scene.FromNet(data);
 	}

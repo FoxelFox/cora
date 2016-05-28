@@ -7,6 +7,8 @@ export abstract class Component {
 	constructor(private type: string) {}
 
 	ToNet(): any {};
+	Serialize() {};
+	Deserialize() {};
 	FromNet(data: any): void {};
 	Update(): void {};
 	Start(): void {};

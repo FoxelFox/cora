@@ -11,6 +11,15 @@ export class Body extends Component {
 		this.body = new Cannon.Body(options);
 	}
 
+
+	Serialize() {
+		return {
+			body: {
+				position: this.body.position
+			}
+		};
+	}
+
 	get Body(): CANNON.Body {
 		return this.body;
 	}

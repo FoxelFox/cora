@@ -45,6 +45,18 @@ export class GameObject {
 		}
 	}
 
+	Serialize() {
+		let data: any = {};
+		for (const id in this.components) {
+			data[id] = this.components[id].Serialize();
+		}
+		return data;
+	}
+
+	Deserialize() {
+
+	}
+
 	FromNet(data: any) {
 		for (const id in data) {
 			this.components[id].FromNet(data[id]);

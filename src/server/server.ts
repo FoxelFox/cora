@@ -37,7 +37,7 @@ class Server {
 
 			this.io.emit("client:connection", socket.id);
 
-			socket.emit("client:load", ["test"]);
+			socket.emit("client:load", this.game.Serialize());
 
 			socket.on("join", () => {
 				this.game.ClientJoin(socket.id);
