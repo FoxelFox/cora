@@ -36,10 +36,10 @@ export class Render implements ISceneEventListener {
 		let camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
 
-		let renderer = new THREE.WebGLRenderer({ antialias: true });
+		let renderer: any = new THREE.WebGLRenderer({ antialias: true });
 		renderer.setSize( window.innerWidth, window.innerHeight );
 		renderer.shadowMap.enabled = true;
-		renderer.shadowMap.cullFace = THREE.CullFaceFrontBack;
+		renderer.shadowMap.renderReverseSided = false;
 		renderer.gammaInput = true;
 		renderer.gammaOutput = true;
 
@@ -54,7 +54,7 @@ export class Render implements ISceneEventListener {
 
 		//
 
-		let dirLight = new THREE.DirectionalLight( 0xffffff, 1 );
+		let dirLight: any = new THREE.DirectionalLight( 0xffffff, 1 );
 		dirLight.color.setHSL( 0.1, 1, 0.95 );
 		dirLight.position.set( -1, 1.75, 1 );
 		dirLight.position.multiplyScalar( 50 );
@@ -62,19 +62,18 @@ export class Render implements ISceneEventListener {
 
 		dirLight.castShadow = true;
 
-		dirLight.shadowMapWidth = 2048;
-		dirLight.shadowMapHeight = 2048;
+		dirLight.shadow.mapSize.width = 2048;
+		dirLight.shadow.mapSize.height = 2048;
 
 		let d = 50;
 
-		dirLight.shadowCameraLeft = -d;
-		dirLight.shadowCameraRight = d;
-		dirLight.shadowCameraTop = d;
-		dirLight.shadowCameraBottom = -d;
+		dirLight.shadow.camera.left = -d;
+		dirLight.shadow.camera.right = d;
+		dirLight.shadow.camera.top = d;
+		dirLight.shadow.camera.bottom = -d;
 
-		dirLight.shadowCameraFar = 3500;
-		dirLight.shadowBias = -0.0001;
-
+		dirLight.shadow.camera.far = 3500;
+		dirLight.shadow.bias = -0.0001;
 
 		//////////////
 
