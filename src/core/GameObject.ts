@@ -53,8 +53,11 @@ export class GameObject {
 		return data;
 	}
 
-	Deserialize() {
-
+	Deserialize(data: any) {
+		// TODO add components
+		for (const id in data) {
+			this.components[id].Deserialize(data[id]);
+		}
 	}
 
 	FromNet(data: any) {

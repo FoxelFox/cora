@@ -36,4 +36,14 @@ export class Client extends Component {
 		return this.keyMap;
 	}
 
+	Serialize() {
+		return {
+			keyMap: this.keyMap
+		}
+	}
+
+	Deserialize(data: any) {
+		this.keyMap = data.keyMap;
+	}
+
 }

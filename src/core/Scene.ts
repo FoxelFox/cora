@@ -61,8 +61,10 @@ export class Scene implements Service {
 		return data;
 	}
 
-	Deserialize() {
-
+	Deserialize(data: any) {
+		for (const id of Object.keys(data)) {
+			data[id] = this.objects[id].Serialize();
+		}
 	}
 
 	FromNet(data: any) {

@@ -9,4 +9,14 @@ export class Model extends Component {
 	get File(): string {
 		return this.file;
 	}
+
+	Serialize() {
+		return {
+			file: this.file
+		}
+	}
+
+	Deserialize(data: any) {
+		this.file = data.file
+	}
 }
