@@ -56,7 +56,7 @@ export class GameObject {
 	Deserialize(data: any) {
 		// TODO add components
 		for (const id in data) {
-			this.components[id].Deserialize(data[id]);
+			//this.components[id] = .Deserialize(data[id]);
 		}
 	}
 

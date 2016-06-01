@@ -42,8 +42,10 @@ export class Client extends Component {
 		}
 	}
 
-	Deserialize(data: any) {
-		this.keyMap = data.keyMap;
+	static Deserialize(data: any): Client {
+		let client = new Client();
+		client.keyMap = data.keyMap;
+		return client;
 	}
 
 }

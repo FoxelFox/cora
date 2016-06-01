@@ -16,7 +16,7 @@ export class Model extends Component {
 		}
 	}
 
-	Deserialize(data: any) {
-		this.file = data.file
+	static Deserialize(data: any): Model {
+		return new Model(data.file);
 	}
 }

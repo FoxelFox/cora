@@ -20,8 +20,8 @@ export class Body extends Component {
 		};
 	}
 
-	Deserialize(data: any) {
-		this.body.position = data.body.position;
+	static Deserialize(data: any): Body {
+		return new Body({ position: data.body.position })
 	}
 
 	get Body(): CANNON.Body {

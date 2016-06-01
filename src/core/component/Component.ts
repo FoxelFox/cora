@@ -8,7 +8,6 @@ export abstract class Component {
 
 	ToNet(): any {};
 	Serialize() {};
-	Deserialize(data: any) {};
 	FromNet(data: any): void {};
 	Update(): void {};
 	Start(): void {};
