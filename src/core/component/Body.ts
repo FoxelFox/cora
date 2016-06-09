@@ -28,3 +28,7 @@ export class Body extends Component {
 		return this.body;
 	}
 }
+
+export module Body {
+	Component.register(Body);
+}
