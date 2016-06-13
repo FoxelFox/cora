@@ -63,7 +63,7 @@ export class Scene implements Service {
 
 	Deserialize(data: any) {
 		for (const id of Object.keys(data)) {
-			data[id] = this.objects[id].Serialize();
+			this.objects[id] = GameObject.Deserialize(data);
 		}
 	}
 
