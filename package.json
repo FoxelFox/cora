@@ -4,6 +4,7 @@
   "description": "Competitive Online RAcer",
   "main": "index.js",
   "scripts": {
+    "server": "node bin/server/server.js",
     "webpack": "webpack",
     "webpack:w": "webpack --watch",
     "tsc": "tsc",
