@@ -17,11 +17,9 @@ window.addEventListener("DOMContentLoaded", () => {
 	});
 
 	socket.on("client:load", (data: any) => {
-		console.log(data);
-		socket.emit("join");
-		// render.load(data).then(() => {
-		// 	socket.emit("join");
-		// });
+		render.load(data).then(() => {
+		 	socket.emit("join");
+		});
 	});
 
 	socket.on("client:join", (socketId: string) => {

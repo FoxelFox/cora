@@ -60,6 +60,7 @@ export class Game {
 			clients[id] = this.clients[id].ID;
 		}
 		return {
+			models: ["test"],
 			clients: clients,
 			scene: this.scene.Serialize()
 		};

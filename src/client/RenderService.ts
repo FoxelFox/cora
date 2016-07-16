@@ -116,16 +116,16 @@ export class Render implements ISceneEventListener {
 		render();
 	}
 
-	load(data: string[]) {
+	load(data: any) {
 		return new Promise((resolve, reject) => {
 			let c = 0;
-			for (let json of data) {
+			for (let json of data.models) {
 				const loader = new THREE.JSONLoader();
 				loader.load(
 					"/assets/" + json + ".json",
 					(geo, mat) => {
 						this.resDB[json] = {geo, mat};
-						if (++c === data.length) {
+						if (++c === data.models.length) {
 							resolve();
 						}
 					}
