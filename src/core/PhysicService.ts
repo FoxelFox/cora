@@ -1,5 +1,6 @@
 import {Scene, ISceneEventListener} from "./Scene";
 import {GameObject} from "./GameObject";
+import {Game} from "../game/game";
 import {Body} from "./component/Body";
 
 export const Cannon = require("../../node_modules/cannon/src/Cannon");
@@ -27,6 +28,8 @@ export class PhysicService implements ISceneEventListener {
 	}
 
 	update() {
-		this.world.step(0.1);
+		if (Game.isHost) {
+			this.world.step(0.1);
+		}
 	}
 }

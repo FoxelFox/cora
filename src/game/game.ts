@@ -8,11 +8,14 @@ import {Player} from "./Player";
 
 export class Game {
 
+	public static isHost: boolean;
+
 	private clients: { [key: string]: GameObject; };
 	private scene: Scene;
 	private physic: PhysicService;
 
-	constructor () {
+	constructor (isHost: boolean) {
+		Game.isHost = isHost;
 		this.clients = {};
 		this.scene = new Scene();
 		this.physic = new PhysicService(this.scene);
@@ -71,6 +74,7 @@ export class Game {
 	}
 
 	FromNet(data: any) {
+		console.log(data);
 		this.scene.FromNet(data);
 	}
 

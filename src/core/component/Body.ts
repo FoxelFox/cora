@@ -21,7 +21,19 @@ export class Body extends Component {
 	}
 
 	static Deserialize(data: any): Body {
-		return new Body({ position: data.body.position })
+		return new Body({ position: data.body.position });
+	}
+
+	ToNet() {
+		return {
+			body: {
+				position: this.body.position
+			}
+		};
+	}
+
+	FromNet(data: any) {
+		this.body.position = data.body.position;
 	}
 
 	get Body(): CANNON.Body {

@@ -20,7 +20,7 @@ class Server {
 		expressApp.use("", router);
 		server.listen("8080");
 
-		this.game = new Game();
+		this.game = new Game(true);
 
 		this.setupSockets();
 

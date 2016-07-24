@@ -4,7 +4,7 @@ import {Game} from "../game/game";
 import {Socket, connect } from "socket.io-client";
 
 window.addEventListener("DOMContentLoaded", () => {
-	const game = new Game();
+	const game = new Game(false);
 	const render = new Render(game.Scene);
 	const input = new Input();
 
@@ -18,7 +18,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 	socket.on("client:load", (data: any) => {
 		render.load(data).then(() => {
-		 	socket.emit("join");
+			socket.emit("join");
 		});
 	});
 
