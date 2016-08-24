@@ -33,8 +33,9 @@ window.addEventListener("DOMContentLoaded", () => {
 		});
 	});
 
-	setInterval(() => {
+	// update game before draw
+	render.registerListener(() => {
 		game.Update();
-	}, 10);
+	});
 
 });

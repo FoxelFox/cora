@@ -8,6 +8,7 @@ export const Cannon = require("../../node_modules/cannon/src/Cannon");
 export class PhysicService implements ISceneEventListener {
 
 	private world: CANNON.World;
+	private time: number;
 
 	constructor(private gScene: Scene) {
 		gScene.AddListener(this);
@@ -28,8 +29,8 @@ export class PhysicService implements ISceneEventListener {
 	}
 
 	update() {
-		if (Game.isHost) {
-			this.world.step(0.1);
-		}
+		const now = Date.now();
+		this.world.step((now - this.time) / 1000);
+		this.time = now;
 	}
 }

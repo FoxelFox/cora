@@ -16,6 +16,7 @@ export class Render implements ISceneEventListener {
 	private rScene: THREE.Scene;
 	private resDB: {[key: string]: ModelResource} = {};
 	private objectDB: {[key: number]: {body: CANNON.Body, mesh: THREE.Mesh}} = {};
+	private listeners: (() => void)[] = [];
 
 	constructor(private gScene: Scene) {
 
@@ -27,6 +28,10 @@ export class Render implements ISceneEventListener {
 		});
 
 		gScene.AddListener(this);
+	}
+
+	public registerListener(listener: () => void) {
+		this.listeners.push(listener);
 	}
 
 	private createScene () {
@@ -100,6 +105,11 @@ export class Render implements ISceneEventListener {
 
 		let render = () => {
 			requestAnimationFrame( render );
+
+			// notify render listeners for new draw
+			for (let listener of this.listeners) {
+				listener();
+			}
 
 			for ( let id in this.objectDB) {
 				const body = this.objectDB[id].body;
