@@ -3,8 +3,7 @@ import {GameObject} from "../core/GameObject";
 import {Body} from "../core/component/Body";
 import {Cannon} from "../core/PhysicService";
 import {Model} from "../core/component/Model";
-import * as THREE from "three";
-
+(<any>window).THREE = require("three");
 
 interface ModelResource {
 		geo: THREE.Geometry;

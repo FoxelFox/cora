@@ -25,8 +25,18 @@ export class Player extends Component {
 	};
 
 	Update() {
-		if (this.client.isControl(Control.W)) {
+		if (this.client.isControl(Control.A)) {
+			this.body.Body.force.x = -10;
+		}
+		if (this.client.isControl(Control.D)) {
 			this.body.Body.force.x = 10;
+		}
+
+		if (this.client.isControl(Control.W)) {
+			this.body.Body.force.y = 10;
+		}
+		if (this.client.isControl(Control.S)) {
+			this.body.Body.force.y = -10;
 		}
 	};
 }
