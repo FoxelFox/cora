@@ -20,3 +20,7 @@ export class Model extends Component {
 		return new Model(data.file);
 	}
 }
+
+export module Model {
+	Component.register(Model);
+}

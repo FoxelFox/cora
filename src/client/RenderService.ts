@@ -3,6 +3,7 @@ import {GameObject} from "../core/GameObject";
 import {Body} from "../core/component/Body";
 import {Cannon} from "../core/PhysicService";
 import {Model} from "../core/component/Model";
+import {Promise} from "es6-promise";
 (<any>window).THREE = require("three");
 
 interface ModelResource {
@@ -26,7 +27,7 @@ export class Render implements ISceneEventListener {
 			// this.engine.resize();
 		});
 
-		gScene.AddListener(this);
+		this.gScene.AddListener(this);
 	}
 
 	public registerListener(listener: () => void) {

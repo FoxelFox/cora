@@ -8,6 +8,13 @@ window.addEventListener("DOMContentLoaded", () => {
 	const render = new Render(game.Scene);
 	const input = new Input();
 
+	//game.CreateWorld();
+
+	// update game before draw
+	render.registerListener(() => {
+		game.Update();
+	});
+
 	let socket = connect();
 
 	socket.on("client:connection", (socketId: string) => {
@@ -17,7 +24,9 @@ window.addEventListener("DOMContentLoaded", () => {
 	});
 
 	socket.on("client:load", (data: any) => {
+
 		render.load(data).then(() => {
+			game.Deserialize(data);
 			socket.emit("join");
 		});
 	});
@@ -27,15 +36,12 @@ window.addEventListener("DOMContentLoaded", () => {
 	});
 
 	socket.on("client:update", (data: any) => {
-		game.FromNet(data);
-		socket.emit("update", {
-			Client: input.ToNet()
-		});
+			game.FromNet(data);
+			socket.emit("update", {
+				Client: input.ToNet()
+			});
 	});
 
-	// update game before draw
-	render.registerListener(() => {
-		game.Update();
-	});
+
 
 });

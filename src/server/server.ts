@@ -21,6 +21,7 @@ class Server {
 		server.listen("8080");
 
 		this.game = new Game(true);
+		this.game.CreateWorld();
 
 		this.setupSockets();
 
@@ -45,8 +46,8 @@ class Server {
 			});
 
 			socket.on("disconnect", () => {
-				this.game.ClientDisconnected(socket.id);
-				this.io.emit("client:disconnect", socket.id);
+				// this.game.ClientDisconnected(socket.id);
+				// this.io.emit("client:disconnect", socket.id);
 			});
 
 			socket.on("update", (data: any) => {

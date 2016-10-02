@@ -54,7 +54,7 @@ export class Scene implements Service {
 
 	Serialize() {
 		let data: any = {};
-		for (const id of Object.keys(this.objects)) {
+		for (const id in this.objects) {
 			data[id] = this.objects[id].Serialize();
 		}
 
@@ -62,14 +62,17 @@ export class Scene implements Service {
 	}
 
 	Deserialize(data: any) {
-		for (const id of Object.keys(data)) {
-			this.objects[id] = GameObject.Deserialize(data);
+
+		for (const id in data) {
+			this.Add(GameObject.Deserialize(data[id]));
+
 		}
 	}
 
 	FromNet(data: any) {
 		for (const id in data) {
-			this.objects[id].FromNet(data[id]);
+			// if (this.objects[id])
+				this.objects[id].FromNet(data[id]);
 		}
 	}
 
@@ -82,6 +85,14 @@ export class Scene implements Service {
 			}
 		}
 		return net;
+	}
+
+	getObjectByID(id: string): GameObject {
+		return this.objects[id];
+	}
+
+	getObjectMap() {
+		return this.objects;
 	}
 
 }

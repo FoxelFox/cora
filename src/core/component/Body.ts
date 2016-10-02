@@ -11,7 +11,6 @@ export class Body extends Component {
 		this.body = new Cannon.Body(options);
 	}
 
-
 	Serialize() {
 		return {
 			body: {

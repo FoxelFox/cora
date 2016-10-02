@@ -49,3 +49,8 @@ export class Client extends Component {
 	}
 
 }
+
+
+export module Client {
+	Component.register(Client);
+}

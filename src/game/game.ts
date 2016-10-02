@@ -19,11 +19,11 @@ export class Game {
 		this.clients = {};
 		this.scene = new Scene();
 		this.physic = new PhysicService(this.scene);
+	}
 
+	CreateWorld() {
 		let world = new GameObject();
 		world.Add(new Body({mass: 0, shape: new Cannon.Plane()}));
-
-
 		this.scene.Add(world);
 	}
 
@@ -69,12 +69,14 @@ export class Game {
 		};
 	}
 
-	Deserialize() {
-
+	Deserialize(data: any) {
+		this.scene.Deserialize(data.scene);
+		for (let client of data.clients) {
+			this.clients[client.ID] = this.scene.getObjectByID(client.ID);
+		}
 	}
 
 	FromNet(data: any) {
-		console.log(data);
 		this.scene.FromNet(data);
 	}
 

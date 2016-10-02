@@ -28,6 +28,6 @@ export abstract class Component {
 	}
 
 	static Deserialize(id: string, data: any): Component {
-		return this.classes[id].Deserialize(data);
+		return new this.classes[id].Deserialize(data);
 	}
 }
