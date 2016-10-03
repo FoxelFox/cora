@@ -118,6 +118,15 @@ export class Render implements ISceneEventListener {
 				mesh.position.x = body.position.x;
 				mesh.position.y = body.position.y;
 				mesh.position.z = body.position.z;
+
+				mesh.rotation.setFromQuaternion(
+					new THREE.Quaternion(
+						body.quaternion.x,
+						body.quaternion.y,
+						body.quaternion.z,
+						body.quaternion.w
+					)
+				);
 			}
 
 			renderer.render(this.rScene, camera);

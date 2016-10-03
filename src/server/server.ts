@@ -28,7 +28,7 @@ class Server {
 		setInterval(() => {
 			this.game.Update();
 			this.io.emit("client:update", this.game.ToNet());
-		}, 1000 / 10);
+		}, 1000 / 60);
 	}
 
 	setupSockets() {

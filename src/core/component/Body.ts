@@ -31,7 +31,9 @@ export class Body extends Component {
 		return {
 			body: {
 				position: this.body.position,
-				velocity: this.body.velocity
+				velocity: this.body.velocity,
+				quaternion: this.body.quaternion,
+				angularVelocity: this.body.angularVelocity
 			}
 		};
 	}
@@ -43,6 +45,13 @@ export class Body extends Component {
 		this.body.velocity.x = data.body.velocity.x;
 		this.body.velocity.y = data.body.velocity.y;
 		this.body.velocity.z = data.body.velocity.z;
+		this.body.quaternion.w = data.body.quaternion.w;
+		this.body.quaternion.x = data.body.quaternion.x;
+		this.body.quaternion.y = data.body.quaternion.y;
+		this.body.quaternion.z = data.body.quaternion.z;
+		this.body.angularVelocity.x = data.body.angularVelocity.x;
+		this.body.angularVelocity.y = data.body.angularVelocity.y;
+		this.body.angularVelocity.z = data.body.angularVelocity.z;
 	}
 
 	get Body(): CANNON.Body {

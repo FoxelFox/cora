@@ -71,8 +71,10 @@ export class Scene implements Service {
 
 	FromNet(data: any) {
 		for (const id in data) {
-			// if (this.objects[id])
+			if (this.objects[id])
 				this.objects[id].FromNet(data[id]);
+			else
+				console.log(id)
 		}
 	}
 
