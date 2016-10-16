@@ -93,7 +93,7 @@ export class Scene implements Service {
 
 		}
 		for (const id in data.objects) {
-			this.objects[id].FromNet(data[id]);
+			this.objects[id].FromNet(data.objects[id]);
 		}
 	}
 

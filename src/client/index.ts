@@ -37,12 +37,12 @@ window.addEventListener("DOMContentLoaded", () => {
 					game.FromNet(update);
 				}
 				updates = undefined;
+			} else {
+				game.FromNet(data);
+				socket.emit("update", {
+					Client: input.ToNet()
+				});
 			}
-
-			game.FromNet(data);
-			socket.emit("update", {
-				Client: input.ToNet()
-			});
 		} else {
 			updates.push(data);
 		}
