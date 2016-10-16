@@ -27,10 +27,6 @@ export class Game {
 		this.scene.Add(world);
 	}
 
-	ClientConnected(socket: string) {
-
-	}
-
 	ClientDisconnected(socket: string) {
 		delete this.clients[socket];
 	}
@@ -39,7 +35,7 @@ export class Game {
 		const client = new GameObject();
 		client.Add(new Client());
 		client.Add(new Model("test"));
-		client.Add(new Body({mass: 1, shape: new Cannon.Box(new Cannon.Vec3(1,1,1))}));
+		client.Add(new Body({mass: 1, shape: new Cannon.Box(new Cannon.Vec3(1, 1, 1))}));
 		client.Add(new Player());
 
 		this.clients[socket] = client;

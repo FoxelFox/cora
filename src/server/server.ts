@@ -18,7 +18,7 @@ class Server {
 		router.use("/assets", express.static("./assets"));
 
 		expressApp.use("", router);
-		server.listen("8080");
+		server.listen("8081");
 
 		this.game = new Game(true);
 		this.game.CreateWorld();
@@ -34,15 +34,14 @@ class Server {
 	setupSockets() {
 		this.io.on("connection", (socket) => {
 			console.log(socket.id);
-			this.game.ClientConnected(socket.id);
 
-			this.io.emit("client:connection", socket.id);
-
-			socket.emit("client:load", this.game.Serialize());
+			socket.emit("client:load", {
+				game: this.game.Serialize(),
+				socket: socket.id
+			});
 
 			socket.on("join", () => {
 				this.game.ClientJoin(socket.id);
-				this.io.emit("client:join", socket.id);
 			});
 
 			socket.on("disconnect", () => {

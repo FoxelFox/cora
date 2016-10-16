@@ -1,7 +1,6 @@
 import {Component} from "./Component";
 import {Cannon} from "../PhysicService";
 
-
 export class Body extends Component {
 
 	private body: CANNON.Body;
@@ -14,6 +13,10 @@ export class Body extends Component {
 	Serialize() {
 		return {
 			body: {
+				shape: {
+					type: this.body.shapes[0].type
+				},
+				mass: this.body.mass,
 				position: this.body.position,
 				velocity: this.body.velocity
 			}
@@ -21,7 +24,20 @@ export class Body extends Component {
 	}
 
 	static Deserialize(data: any): Body {
+
+		let shape: any;
+		switch (data.body.shape.type) {
+			case Cannon.Shape.types.PLANE:
+				shape = new Cannon.Plane();
+				break;
+			case Cannon.Shape.types.BOX:
+				shape = new Cannon.Box(new Cannon.Vec3(1, 1, 1));
+				break;
+		}
+
 		return new Body({
+			shape: shape,
+			mass: data.body.mass,
 			position: data.body.position,
 			velocity: data.body.velocity
 		});

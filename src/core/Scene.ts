@@ -7,7 +7,7 @@ export enum SceneEventType {
 
 export interface ISceneEventListener {
 	onSceneAdd(object: GameObject): void;
-	onSceneRemove(object: GameObject): void;
+	onSceneRemove(id: string): void;
 }
 
 export interface SceneEvent {
@@ -18,6 +18,7 @@ export interface SceneEvent {
 export class Scene implements Service {
 	private objects: { [key: string]: GameObject; };
 	private listeners: ISceneEventListener[];
+	private events: any[] = [];
 
 	constructor() {
 		this.objects = {};
@@ -25,6 +26,11 @@ export class Scene implements Service {
 	}
 
 	Add(object: GameObject) {
+		this.events.push({
+			type: "add",
+			object: object.Serialize()
+		});
+
 		object.Start();
 		this.objects[object.ID] = object;
 
@@ -33,13 +39,17 @@ export class Scene implements Service {
 		}
 	}
 
-	Remove(object: GameObject) {
+	Remove(id: string) {
+		this.events.push({
+			type: "add",
+			id: id
+		});
 
 		for (const listener of this.listeners) {
-			listener.onSceneRemove(object);
+			listener.onSceneRemove(id);
 		}
-		object.delete();
-		delete this.objects[object.ID];
+		this.objects[id].delete();
+		delete this.objects[id];
 	}
 
 	AddListener(callback: ISceneEventListener) {
@@ -70,22 +80,37 @@ export class Scene implements Service {
 	}
 
 	FromNet(data: any) {
-		for (const id in data) {
-			if (this.objects[id])
-				this.objects[id].FromNet(data[id]);
-			else
-				console.log(id)
+		for (let event of data.events) {
+			switch (event.type) {
+
+				case "add":
+					this.Add(GameObject.Deserialize(event.object));
+					break;
+				case "remove":
+					this.Remove(event.id);
+					break;
+			}
+
+		}
+		for (const id in data.objects) {
+			this.objects[id].FromNet(data[id]);
 		}
 	}
 
 	ToNet(): any {
-		let net: any = {};
+		let net: any = {
+			events: this.events,
+			objects: {}
+		};
 		for (const id of Object.keys(this.objects)) {
 			let onet = this.objects[id].ToNet();
 			if (onet) {
-				net[id] = onet;
+				net.objects[id] = onet;
 			}
 		}
+
+		this.events = [];
+
 		return net;
 	}
 

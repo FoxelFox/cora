@@ -36,3 +36,4 @@ typings
 bin
 .vscode
 .idea
+.remote-sync.json

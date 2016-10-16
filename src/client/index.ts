@@ -7,8 +7,8 @@ window.addEventListener("DOMContentLoaded", () => {
 	const game = new Game(false);
 	const render = new Render(game.Scene);
 	const input = new Input();
-
-	//game.CreateWorld();
+	let isJoined: boolean = false;
+	let updates: any[] = [];
 
 	// update game before draw
 	render.registerListener(() => {
@@ -17,29 +17,35 @@ window.addEventListener("DOMContentLoaded", () => {
 
 	let socket = connect();
 
-	socket.on("client:connection", (socketId: string) => {
-		const localID = "/#" + socket.id;
-		game.ClientConnected(socketId);
-
-	});
-
 	socket.on("client:load", (data: any) => {
+		const localID = data.socket;
+		updates = [];
+		render.load(data.game).then(() => {
 
-		render.load(data).then(() => {
-			game.Deserialize(data);
+			game.Deserialize(data.game);
+
 			socket.emit("join");
+			isJoined = true;
 		});
 	});
 
-	socket.on("client:join", (socketId: string) => {
-		game.ClientJoin(socketId);
-	});
-
 	socket.on("client:update", (data: any) => {
+		if (isJoined) {
+			if (updates) {
+				// first handle updates that was recieved in loading time
+				for (let update of updates) {
+					game.FromNet(update);
+				}
+				updates = undefined;
+			}
+
 			game.FromNet(data);
 			socket.emit("update", {
 				Client: input.ToNet()
 			});
+		} else {
+			updates.push(data);
+		}
 	});
 
 
