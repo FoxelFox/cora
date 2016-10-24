@@ -166,8 +166,8 @@ export class Render implements ISceneEventListener {
 		}
 	}
 
-	onSceneRemove(id: string) {
-
+	onSceneRemove(object: GameObject) {
+		this.rScene.remove(this.objectDB[object.ID].mesh);
 	}
 
 }

@@ -59,6 +59,7 @@ export class GameObject {
 	static Deserialize(data: any): GameObject {
 
 		let object = new GameObject();
+		object.id = data.id;
 		for (const id in data.components) {
 			object.Add(Component.Deserialize(id, data.components[id]));
 		}

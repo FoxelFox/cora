@@ -24,8 +24,11 @@ export class PhysicService implements ISceneEventListener {
 		}
 	}
 
-	onSceneRemove(id: string) {
-
+	onSceneRemove(object: GameObject) {
+		if (object.Has("Body")) {
+			const body = <Body>object.Get("Body");
+			this.world.removeBody(body.Body);
+		}
 	}
 
 	update() {

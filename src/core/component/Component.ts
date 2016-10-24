@@ -1,7 +1,7 @@
 import {GameObject} from "../GameObject";
 
 export abstract class Component {
-	private static classes: {[key: string] : any} = {};
+	private static classes: {[key: string]: any} = {};
 	private gameObject: GameObject;
 
 	constructor(private type: string) {}

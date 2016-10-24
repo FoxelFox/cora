@@ -28,6 +28,8 @@ export class Game {
 	}
 
 	ClientDisconnected(socket: string) {
+		let client = this.clients[socket];
+		this.scene.Remove(client);
 		delete this.clients[socket];
 	}
 

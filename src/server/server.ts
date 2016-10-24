@@ -45,8 +45,7 @@ class Server {
 			});
 
 			socket.on("disconnect", () => {
-				// this.game.ClientDisconnected(socket.id);
-				// this.io.emit("client:disconnect", socket.id);
+				this.game.ClientDisconnected(socket.id);
 			});
 
 			socket.on("update", (data: any) => {
