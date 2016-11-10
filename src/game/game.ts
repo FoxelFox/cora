@@ -36,7 +36,7 @@ export class Game {
 	ClientJoin(socket: string) {
 		const client = new GameObject();
 		client.Add(new Client());
-		client.Add(new Model("test"));
+		client.Add(new Model("player"));
 		client.Add(new Body({mass: 1, shape: new Cannon.Box(new Cannon.Vec3(1, 1, 1))}));
 		client.Add(new Player());
 
@@ -61,7 +61,7 @@ export class Game {
 			clients[id] = this.clients[id].ID;
 		}
 		return {
-			models: ["test"],
+			models: ["player"], // TODO: make this automatic
 			clients: clients,
 			scene: this.scene.Serialize()
 		};
