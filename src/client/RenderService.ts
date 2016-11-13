@@ -4,6 +4,8 @@ import {Body} from "../core/component/Body";
 import {Cannon} from "../core/PhysicService";
 import {Model} from "../core/component/Model";
 import {Promise} from "es6-promise";
+import {Camera} from "./Camera";
+
 (<any>window).THREE = require("three");
 
 interface ModelResource {
@@ -36,7 +38,7 @@ export class Render implements ISceneEventListener {
 
 	private createScene () {
 		this.rScene = new THREE.Scene();
-		let camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+		let camera = new Camera();
 
 		let renderer: any = new THREE.WebGLRenderer({ antialias: true });
 		renderer.setSize( window.innerWidth, window.innerHeight );
@@ -97,12 +99,6 @@ export class Render implements ISceneEventListener {
 		this.rScene.add( ground );
 		//////////
 
-		camera.position.z = 10;
-		camera.position.y = -20;
-
-		camera.rotateX(1);
-
-
 		let render = () => {
 			requestAnimationFrame( render );
 
@@ -129,7 +125,7 @@ export class Render implements ISceneEventListener {
 				);
 			}
 
-			renderer.render(this.rScene, camera);
+			renderer.render(this.rScene, camera.Camera);
 		};
 
 		render();
@@ -138,18 +134,21 @@ export class Render implements ISceneEventListener {
 	load(data: any) {
 		return new Promise((resolve, reject) => {
 			let c = 0;
-			for (let json of data.models) {
+			for (let json of data.game.models) {
 				const loader = new THREE.JSONLoader();
 				loader.load(
 					"/assets/" + json + ".json",
 					(geo, mat) => {
 						this.resDB[json] = {geo, mat};
-						if (++c === data.models.length) {
+						if (++c === data.game.models.length) {
 							resolve();
 						}
 					}
 				);
 			}
+
+			// TODO use this for camera
+			let playerObjectID = data.game.clients[data.socket];
 		});
 	}
 

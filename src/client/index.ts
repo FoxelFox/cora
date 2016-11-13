@@ -7,6 +7,7 @@ window.addEventListener("DOMContentLoaded", () => {
 	const game = new Game(false);
 	const render = new Render(game.Scene);
 	const input = new Input();
+	let socketID: string;
 	let isJoined: boolean = false;
 	let updates: any[] = [];
 
@@ -20,7 +21,8 @@ window.addEventListener("DOMContentLoaded", () => {
 	socket.on("client:load", (data: any) => {
 		const localID = data.socket;
 		updates = [];
-		render.load(data.game).then(() => {
+		socketID = data.socket;
+		render.load(data).then(() => {
 
 			game.Deserialize(data.game);
 
